@@ -44,11 +44,7 @@ public class MyPlaylist {
         try {
             Connection connection = Dbutil.getConnection();
             Statement st = connection.createStatement();
-            int id1 = 0;
 
-            List<String> li = new ArrayList<>();
-
-            List<Integer> li2 = new ArrayList<>();
             System.out.println("Press Yes or no");
             String res1 = sc.next();
             if (res1.equalsIgnoreCase("yes")) {
@@ -137,26 +133,27 @@ public class MyPlaylist {
         do {
             flag = true;
             System.out.println("\t *** Available PlayList are *** \t \n");
-            ResultSet res = st.executeQuery("select * from MyAllPlayList where UserId='" + Registration.UserId + "' ");
+            ResultSet res = st.executeQuery("select distinct NameOfPlayList from MyAllPlayList where UserId='" + Registration.UserId + "' ");
             while (res.next()) {
-                li7.add(res.getString(2));  // Available PlayList are
+                li7.add(res.getString(1));  // Available PlayList are
             }
                 System.out.println(li7 + "\n");
                 System.out.println("From Which playList Do You want to listen Songs ? ");
                 String playList = sc.next();
                 if (li7.contains(playList)) {
-                    System.out.println("  \t  *** Available Songs are *** \t \n");
-                    ResultSet res2 = st.executeQuery("select * from MyAllPlayList where NameOfPlayList='" + playList + "'");
+                    ResultSet res2 = st.executeQuery("select distinct SongId from MyAllPlayList where NameOfPlayList='" + playList + "'");
                     while (res2.next()) {
-                        li4.add(res2.getInt(3));  //SongId
+                        li4.add(res2.getInt(1));  //SongId
                     }
 
                     Iterator<Integer> li5 = li4.iterator();
                     re2 = li5.next();
-                    ResultSet r9 = st.executeQuery("select * from mysongs where songId=" + re2 + "");
+                    ResultSet r9 = st.executeQuery("select distinct SongName from mysongs where songId=" + re2 + "");
                     while (r9.next()) {
-                        li6.add(r9.getString(2));  // Print Song Of Particular PlayList
+                        li6.add(r9.getString(1));  // Print Song Of Particular PlayList
+                        System.out.println(li6);
                     }
+                    System.out.println("\t *** Available Songs are *** \t \n");
                     System.out.println(li6 + "\n");
                     flag = false;
                 } else {
@@ -193,10 +190,10 @@ public class MyPlaylist {
             if (res1.equalsIgnoreCase("Yes")) {
 
                 List<String> li1 = new ArrayList<>();
-                ResultSet res = st.executeQuery(" select * from MyAllPlayList where UserId='" + Registration.UserId + "'");
+                ResultSet res = st.executeQuery(" select distinct NameOfPlayList from MyAllPlayList where UserId='" + Registration.UserId + "'");
 
                 while (res.next()) {
-                    li1.add(res.getString(2));
+                    li1.add(res.getString(1));
 
                 }
                 System.out.print("Your PlayList are :");

@@ -15,23 +15,7 @@ public class JukeBox {
             Dbutil.getConnection();
 
             Registration.Choose();
-            MyPlaylist mp=new MyPlaylist();
-           // mp.createdTableAllPlaylist();
-            //mp.createdPlaylist();
 
-           // MyPlaylist.availableSongs();
-            //Play.playsongs();
-            //PlayAllSongs.playSongs();
-            //MyPlaylist.name();
-              //Search.searchByArtist();
-             //PlayAllSongs.checkException();
-           //Search.searchBySongName();
-           // MyPlaylist.createPlayList();
-            //MyPlaylist.createdTableAllPlaylist();
-           // MyPlaylist.CreateAllPlayList();
-            //PlayAllSongs.playSongs();
-            //MyPlaylist.addSongs();
-            //Play.playsongs();
         }
     }
 

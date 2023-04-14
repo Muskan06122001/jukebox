@@ -27,7 +27,8 @@ public class PlayAllSongs {
         Statement st = con.createStatement();
         Dbutil.getConnection();
         List<Integer> li = new ArrayList<>();
-
+        List<Integer> li3 = new ArrayList<>();
+        List<String> li2 = new ArrayList<>();
         boolean flag = true;
         int Id = 0;
         do {
@@ -37,13 +38,23 @@ public class PlayAllSongs {
                 for (Songs s1 : Play.list) {
                     li.add(s1.getSongId());
                 }
-                System.out.printf("%s\n",
-                        StringUtils.center("***-----Available SongId-----***\n", 100));
 
-                ResultSet res1 = st.executeQuery("select distinct SongId from mysongs");
+
+                ResultSet res1 = st.executeQuery("select *  from mysongs");
                 while (res1.next()) {
-                    System.out.println(res1.getString(1));
+                    li3.add(res1.getInt(1));
                 }
+                ResultSet res2=st.executeQuery("select * from mysongs");
+                while(res2.next()){
+                    li2.add(res2.getString(2));
+                }
+
+                System.out.println("\t\t***-----Available SongId-----***\t\t\n");
+                System.out.println(li3+"\n");
+                System.out.println("\t\t***-----Available SongName-----***\t\t\n");
+                System.out.println(li2+"\n");
+
+
                 System.out.println("Enter SongId");
                 Id = sc.nextInt();
                 ResultSet res = st.executeQuery("select * from mysongs where SongId='" + Id + "'");

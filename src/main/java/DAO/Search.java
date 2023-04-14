@@ -34,6 +34,8 @@ public class Search {
         boolean flag;
         int id = 0;
         List<Integer> li = new ArrayList<>();
+        List<String> li2 = new ArrayList<>();
+        List<Integer> li1 = new ArrayList<>();
         flag = true;
         do {
             try {
@@ -42,14 +44,23 @@ public class Search {
                 for (Songs s1 : Play.list) {
                     li.add(s1.getSongId());
                 }
-                System.out.printf("%s\n",
-                StringUtils.center("***-----Available SongId-----***\n", 100));
 
-                ResultSet res1=st.executeQuery("select distinct SongId from mysongs");
+
+                ResultSet res1=st.executeQuery("select * from mysongs");
                 while(res1.next()){
-                    System.out.println(res1.getString(1));                                          // for printing  songsId
+                    li1.add(res1.getInt(1));                                          // for printing  songsId
                 }
 
+                ResultSet res2=st.executeQuery("select * from mysongs");
+                while(res2.next()){
+                    li2.add(res2.getString(2));
+                }
+
+
+                System.out.println("\t\t***-----Available SongId-----***\t\t\n");
+                System.out.println(li1+"\n");
+                System.out.println("\t\t***-----Available SongName-----***\t\t\n");
+                System.out.println(li2+"\n");
                 System.out.println("Enter the Id");
                 id = sc.nextInt();
                 ResultSet res = st.executeQuery("select * from mysongs where SongId='" + id + "'");
