@@ -1,6 +1,6 @@
 package main;
 
-import dao.*;
+import dao.Registration;
 import util.Dbutil;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -11,12 +11,12 @@ import java.sql.SQLException;
 
 public class JukeBox {
 
-        public static void main(String[]args) throws SQLException, LineUnavailableException, UnsupportedAudioFileException, IOException {
-            Dbutil.getConnection();
-            Registration.Choose();
+    public static void main(String[] args) throws SQLException, LineUnavailableException, UnsupportedAudioFileException, IOException {
+        Dbutil.getConnection();
+        Registration.Choose();
 
-        }
     }
+}
 
 
 

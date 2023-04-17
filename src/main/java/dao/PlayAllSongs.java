@@ -27,8 +27,8 @@ public class PlayAllSongs {
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();
         Dbutil.getConnection();
+        List<Integer> getAllSongIdList = new ArrayList<>();
         List<Integer> songIdList = new ArrayList<>();
-        List<Integer> li3 = new ArrayList<>();
         List<String> songNameList = new ArrayList<>();
         boolean flag = true;
         int Id;
@@ -37,47 +37,36 @@ public class PlayAllSongs {
 
                 SongPlayer.playSong();
                 for (Song s1 : SongPlayer.list) {
-                    songIdList.add(s1.getSongId());
+                    getAllSongIdList.add(s1.getSongId());
                 }
 
 
-                ResultSet songResultSet = st.executeQuery("select *  from MySongs");
-                while (songResultSet.next()) {
-                    songNameList.add(songResultSet.getString(2));
-                    li3.add(songResultSet.getInt(1));
+                ResultSet songResultSet1 = st.executeQuery("select *  from MySongs");
+                while (songResultSet1.next()) {
+                    songNameList.add(songResultSet1.getString(2));
+                    songIdList.add(songResultSet1.getInt(1));
                 }
+
 
                 System.out.println("\t\t***-----Available SongId-----***\t\t\n");
-                System.out.println(li3 + "\n");
+                System.out.println(songIdList + "\n");
                 System.out.println("\t\t***-----Available SongName-----***\t\t\n");
                 System.out.println(songNameList + "\n");
 
 
                 System.out.println("Enter SongId");
                 Id = sc.nextInt();
-                ResultSet res = st.executeQuery("select * from MySongs where SongId='" + Id + "'");
+                ResultSet songResultSet2 = st.executeQuery("select * from MySongs where SongId='" + Id + "'");
 
 
-                if (songIdList.contains(Id)) {
-                    while (res.next()) {
+                if (getAllSongIdList.contains(Id)) {
+                    while (songResultSet2.next()) {
                         System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
-                        System.out.format("|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
-                                StringUtils.center("SongId", 20),
-                                StringUtils.center("SongName", 20),
-                                StringUtils.center("Album", 25),
-                                StringUtils.center("Genre", 20),
-                                StringUtils.center("Artist", 20),
-                                StringUtils.center("Duration", 20));
+                        System.out.format("|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|", StringUtils.center("SongId", 20), StringUtils.center("SongName", 20), StringUtils.center("Album", 25), StringUtils.center("Genre", 20), StringUtils.center("Artist", 20), StringUtils.center("Duration", 20));
 
                         System.out.println();
 
-                        System.out.format("|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
-                                StringUtils.center(String.valueOf(res.getInt(1)), 20),
-                                StringUtils.center(res.getString(2), 20),
-                                StringUtils.center(res.getString(3), 25),
-                                StringUtils.center(res.getString(4), 20),
-                                StringUtils.center(res.getString(5), 20),
-                                StringUtils.center(res.getString(6), 20));
+                        System.out.format("|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|", StringUtils.center(String.valueOf(songResultSet2.getInt(1)), 20), StringUtils.center(songResultSet2.getString(2), 20), StringUtils.center(songResultSet2.getString(3), 25), StringUtils.center(songResultSet2.getString(4), 20), StringUtils.center(songResultSet2.getString(5), 20), StringUtils.center(songResultSet2.getString(6), 20));
 
                         System.out.println();
                         System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");

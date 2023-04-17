@@ -1,12 +1,11 @@
 package util;
 
-import util.Dbutil;
+import exception.TableAlreadyCreatedException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
-import exception.TableAlreadyCreatedException;
 
 public class RegistrationDao {
     public String RegistrationTable() throws SQLException {
@@ -20,8 +19,8 @@ public class RegistrationDao {
                 throw new TableAlreadyCreatedException("Table already created");
             }
 
-        }catch (TableAlreadyCreatedException |  SQLSyntaxErrorException  e){
-            System.out.println(e+"\n");
+        } catch (TableAlreadyCreatedException | SQLSyntaxErrorException e) {
+            System.out.println(e + "\n");
         }
         return "Table created";
     }

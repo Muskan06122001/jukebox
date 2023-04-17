@@ -9,30 +9,30 @@ import java.sql.SQLException;
 public class RegistrationTest {
 
 
-
     Registration register;
 
-   @Before
-    public void setUp(){
-        register=new Registration();
+    @Before
+    public void setUp() {
+        register = new Registration();
     }
 
     @After
-    public void tearDown(){
-       register=null;
+    public void tearDown() {
+        register = null;
     }
 
     @Test
-    public void checkLoggedOut(){
-       String actual=register.Logout();
-        Assert.assertEquals("**** You Are LoggedOut ****",actual);
+    public void checkLoggedOut() {
+        String actual = register.Logout();
+        Assert.assertEquals("**** You Are LoggedOut ****", actual);
     }
 
     @Test
-    public void checkLoggedOutFailure(){
-        String actual=register.Logout();
-        Assert.assertNotEquals("**** You not Are LoggedOut ****",actual);
+    public void checkLoggedOutFailure() {
+        String actual = register.Logout();
+        Assert.assertNotEquals("**** You not Are LoggedOut ****", actual);
     }
+
     @Test
     public void checkId() throws SQLException {
         int actual = register.UserIdCheck("Muskan", "Muskan123");
@@ -41,21 +41,22 @@ public class RegistrationTest {
 
     @Test
     public void checkIfFailure() throws SQLException {
-        int actual=register.UserIdCheck("Muskan","Muskan123");
-        Assert.assertNotEquals(2,actual);
+        int actual = register.UserIdCheck("Muskan", "Muskan123");
+        Assert.assertNotEquals(2, actual);
 
     }
 
     @Test
     public void checkUserId() throws SQLException {
-       int actual=register.UserIdCheck("Mahek","Mahek123");
-       Assert.assertEquals(2,actual);
+        int actual = register.UserIdCheck("Mahek", "Mahek123");
+        Assert.assertEquals(2, actual);
 
     }
+
     @Test
     public void checkUseIdFailure() throws SQLException {
-        int actual=register.UserIdCheck("Mahek","Mahek123");
-        Assert.assertNotEquals(1,actual);
+        int actual = register.UserIdCheck("Mahek", "Mahek123");
+        Assert.assertNotEquals(1, actual);
     }
 }
 

@@ -22,21 +22,18 @@ public class Registration {
     public static void Choose() throws SQLException, UnsupportedAudioFileException, LineUnavailableException, IOException {
         Registration r = new Registration();
         System.out.println("\n");
-        System.out.printf("%s\n",
-                StringUtils.center("***-----Welcome To My JukeBox-----***\n", 100));
+        System.out.printf("%s\n", StringUtils.center("***-----Welcome To My JukeBox-----***\n", 100));
         System.out.println("1)----->LogIn\n");
         System.out.println("2)----->Create Account\n");
         System.out.println("3)----->Exit\n");
 
         System.out.println("Enter Your Choice");
         int choose = sc.nextInt();
-        //int choose=0;
 
         switch (choose) {
             case 1:
                 System.out.println("1)----->LogIn Account\n");
                 register();
-                //SongPlayer.YourChoice();
                 SongPlayer.songsTable();
                 break;
             case 2:
@@ -59,7 +56,7 @@ public class Registration {
 
     public static void register() throws SQLException {
         Registration r = new Registration();
-         Dbutil.getConnection();
+        Dbutil.getConnection();
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Your Name");
@@ -101,8 +98,7 @@ public class Registration {
     }
 
     public String Logout() {
-        System.out.printf("%s\n",
-                StringUtils.center("***-----You Are LoggedOut-----***\n", 100));
+        System.out.printf("%s\n", StringUtils.center("***-----You Are LoggedOut-----***\n", 100));
         return "**** You Are LoggedOut ****";
     }
 
@@ -110,7 +106,6 @@ public class Registration {
         Connection connection = Dbutil.getConnection();
         Statement st = connection.createStatement();
         ResultSet res = st.executeQuery("select * from Registration  where username='" + name + "' AND password='" + password + "'");
-        System.out.println("--------------------");
         res.next();
         UserId = res.getInt(3);
         System.out.println(UserId);

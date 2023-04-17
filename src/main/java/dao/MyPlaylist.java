@@ -8,7 +8,10 @@ import util.Dbutil;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,18 +26,18 @@ public class MyPlaylist {
         Statement st = connection.createStatement();
         int id1 = 0;
         boolean flag;
-        List<String> li = new ArrayList<>();
-        List<String> li2 = new ArrayList<>();
+        List<String> songNameList = new ArrayList<>();
+        List<String> userIdPlayList = new ArrayList<>();
 
-        ResultSet re = st.executeQuery("select distinct NameOfPlayList from MyAllPlayList where UserId='" + Registration.UserId + "'");
-        while (re.next()) {
-            li2.add(re.getString(1));
+        ResultSet songResultSet1 = st.executeQuery("select distinct NameOfPlayList from MyAllPlayList where UserId='" + Registration.UserId + "'");
+        while (songResultSet1.next()) {
+            userIdPlayList.add(songResultSet1.getString(1));
         }
         System.out.println(" *** Available PlayList are *** \n");
-        System.out.println("------" + li2 + "------\n");
+        System.out.println("------" + userIdPlayList + "------\n");
 
         System.out.println("Create PlayList , Enter Name Of Your PlayList");
-        String playListName=sc.next();
+        String playListName = sc.next();
 
         do {
             flag = true;
@@ -43,42 +46,34 @@ public class MyPlaylist {
 
 
             if (re2.equalsIgnoreCase("Yes")) {
-                //System.out.println("In which PlayList do you want to add song ? ");
-                //String c = sc.next();
                 System.out.println("Enter the name of Song");
                 String name = sc.next();
 
-                //if (li2.contains(c)) {
-
-                    //System.out.println("Enter the name of Song");
-                    //String name = sc.next();
-
-                    ResultSet r1 = st.executeQuery("select * from MySongs");
-                    while (r1.next()) {
-                        li.add(r1.getString(2));  // song name
-                    }
-                    ResultSet r2 = st.executeQuery("select SongId from MySongs where songName='" + name + "'");
-                    while (r2.next()) {
-                        id1 = (r2.getInt(1));
-                    }
-
-                    if (li.contains(name)) {
-                        System.out.println(id1);
-                        st.executeUpdate("Insert into MyAllPlayList  values('" + Registration.UserId + "', '" + playListName + "','" + id1 + "')");                        System.out.println("------ Song Added ------ \n");
-             //st.executeUpdate("Insert into MyAllPlayList  values('" + Registration.UserId + "', '" + c + "','" + id1 + "')");
-                    } else {
-                        System.out.println("This Song is not available ,Thanks for Your Response !!! \n");//song name done with songId
-
-                    }
-                } else {
-                    System.out.println(" *** Thanks for Your Response !!! ***   \n");
-                    flag=false;
-
+                ResultSet r1 = st.executeQuery("select * from MySongs");
+                while (r1.next()) {
+                    songNameList.add(r1.getString(2));
+                }
+                ResultSet r2 = st.executeQuery("select SongId from MySongs where songName='" + name + "'");
+                while (r2.next()) {
+                    id1 = (r2.getInt(1));
                 }
 
-            } while (flag);
-    }
+                if (songNameList.contains(name)) {
+                    System.out.println(id1);
+                    st.executeUpdate("Insert into MyAllPlayList  values('" + Registration.UserId + "', '" + playListName + "','" + id1 + "')");
+                    System.out.println("------ Song Added ------ \n");
+                } else {
+                    System.out.println("This Song is not available ,Thanks for Your Response !!! \n");//song name done with songId
 
+                }
+            } else {
+                System.out.println(" *** Thanks for Your Response !!! ***   \n");
+                flag = false;
+
+            }
+
+        } while (flag);
+    }
 
 
     public static void playSongs() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
@@ -88,36 +83,36 @@ public class MyPlaylist {
         int re3 = 0;
         int re2;
         boolean flag;
-        List<Integer> li4 = new ArrayList<>();
-        List<String> li6 = new ArrayList<>();
-        List<String> li7 = new ArrayList<>();
+        List<Integer> songIdList = new ArrayList<>();
+        List<String> songNameList = new ArrayList<>();
+        List<String> userIdPlayList = new ArrayList<>();
         do {
             flag = true;
             System.out.println("\t *** Available PlayList are *** \t \n");
             ResultSet res = st.executeQuery("select distinct NameOfPlayList from MyAllPlayList where UserId='" + Registration.UserId + "' ");
             while (res.next()) {
-                li7.add(res.getString(1));  // Available PlayList are
+                userIdPlayList.add(res.getString(1));
             }
-            System.out.println(li7 + "\n");
+            System.out.println(userIdPlayList + "\n");
 
             System.out.println("From Which playList Do You want to listen Song ? ");
             String playList = sc.next();
-            if (li7.contains(playList)) {
+            if (userIdPlayList.contains(playList)) {
                 ResultSet res2 = st.executeQuery("select  SongId from MyAllPlayList where NameOfPlayList='" + playList + "'");
                 while (res2.next()) {
-                    li4.add(res2.getInt(1));  //SongId
+                    songIdList.add(res2.getInt(1));
                 }
-                System.out.println(li4+"\n");     //  printing SongId
+                System.out.println(songIdList + "\n");
 
-                Iterator<Integer> l = li4.iterator();
+                Iterator<Integer> l = songIdList.iterator();
                 re2 = l.next();
                 ResultSet r9 = st.executeQuery("select SongName from MySongs where songId=" + re2 + "");
                 while (r9.next()) {
-                    li6.add(r9.getString(1));                                                          // Print Song Of Particular PlayList
-                    //System.out.println(li6);
+                    songNameList.add(r9.getString(1));                                                          // Print Song Of Particular PlayList
+
                 }
                 System.out.println("\t *** Available Song are *** \t \n");
-                System.out.println(li6 + "\n");
+                System.out.println(songNameList + "\n");
                 flag = false;
             } else {
                 System.out.println("  \t  *** Sorry , This PlayList Doesn't exist *** \t \n");
@@ -133,7 +128,7 @@ public class MyPlaylist {
             while (r8.next()) {
                 re3 = r8.getInt(1);
             }
-            if (li4.contains(re3)) {
+            if (songIdList.contains(re3)) {
                 SongPlayer.playing(re3);
                 flag = false;
             } else {
@@ -155,14 +150,12 @@ public class MyPlaylist {
 
             System.out.println("Enter Your Choice");
             int choice = sc.nextInt();
-            if (choice == 1 || choice == 2 || choice == 3 || choice == 4 ) {
+            if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
 
                 switch (choice) {
 
                     case 1:
                         System.out.println("1)-----Create Playlist & Add Songs");
-                        //String r=mp.createdPlaylist();
-                        //System.out.println(r);
                         availableSongs();
                         CreateAndAddSongsToList();
                         myAllPlaylist();
@@ -195,7 +188,7 @@ public class MyPlaylist {
                 throw new InvalidChoiceException("Invalid Choice");
             }
         } catch (InvalidChoiceException e) {
-            System.out.println(e+"\n");
+            System.out.println(e + "\n");
             myAllPlaylist();
         }
     }
@@ -217,15 +210,15 @@ public class MyPlaylist {
         System.out.println();
         System.out.println("+---------------------------------------------------------------------------------------------------------------------------------+\n");
 
-        ResultSet res = st.executeQuery("select * from MySongs");
-        while (res.next()) {
+        ResultSet songResultSet = st.executeQuery("select * from MySongs");
+        while (songResultSet.next()) {
             System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
-                    StringUtils.center(String.valueOf(res.getInt(1)), 20),
-                    StringUtils.center(res.getString(2), 20),
-                    StringUtils.center(res.getString(3), 25),
-                    StringUtils.center(res.getString(4), 20),
-                    StringUtils.center(res.getString(5), 20),
-                    StringUtils.center(res.getString(6), 20));
+                    StringUtils.center(String.valueOf(songResultSet.getInt(1)), 20),
+                    StringUtils.center(songResultSet.getString(2), 20),
+                    StringUtils.center(songResultSet.getString(3), 25),
+                    StringUtils.center(songResultSet.getString(4), 20),
+                    StringUtils.center(songResultSet.getString(5), 20),
+                    StringUtils.center(songResultSet.getString(6), 20));
             System.out.println();
         }
         System.out.println("+---------------------------------------------------------------------------------------------------------------------------------+\n");
@@ -233,27 +226,7 @@ public class MyPlaylist {
     }
 
 
-
-    /*public String createdPlaylist(){
-        try {
-            Connection connection = Dbutil.getConnection();
-            Statement st = connection.createStatement();
-
-            System.out.println("Press Yes or no");
-            String res1 = sc.next();
-            if (res1.equalsIgnoreCase("yes")) {
-                System.out.println("Enter name of your PlayList");
-                String PlayListName = sc.next();
-                st.executeUpdate("insert into MyAllPlayList (UserId,NameOfPlayList) values ('" + Registration.UserId + "','" + PlayListName + "')");
-
-            }
-        } catch (SQLException e) {
-            System.out.println(e+"\n");
-        }
-        return " *** PlayList created *** \n";
-    }*/
-
-    public void viewPlayList()  {  //used
+    public void viewPlayList() {
         try {
             Connection connection = Dbutil.getConnection();
             Statement st = connection.createStatement();
@@ -261,22 +234,22 @@ public class MyPlaylist {
             String res1 = sc.next();
             if (res1.equalsIgnoreCase("Yes")) {
 
-                List<String> li1 = new ArrayList<>();
+                List<String> userIdPlayList = new ArrayList<>();
                 ResultSet res = st.executeQuery(" select distinct NameOfPlayList from MyAllPlayList where UserId='" + Registration.UserId + "'");
 
                 while (res.next()) {
-                    li1.add(res.getString(1));
+                    userIdPlayList.add(res.getString(1));
 
                 }
                 System.out.print("Your PlayList are :");
-                System.out.println("-------------" + li1 + "------------");
+                System.out.println("-------------" + userIdPlayList + "------------");
 
 
             } else {
                 System.out.println(" *** Thanks For Your Response *** ");
             }
         } catch (SQLException e) {
-            System.out.println(e+"\n");
+            System.out.println(e + "\n");
         }
     }
 

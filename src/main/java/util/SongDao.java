@@ -1,13 +1,12 @@
 package util;
 
-import util.Dbutil;
+import exception.DuplicateValueException;
+import exception.TableAlreadyCreatedException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
-import exception.TableAlreadyCreatedException;
-import exception.DuplicateValueException;
 
 public class SongDao {
     public String createTable() throws SQLException {
@@ -45,8 +44,8 @@ public class SongDao {
             st.executeUpdate("insert into MySongs values(12,'SaadiGalliAaja','Nautanki','Love','AyushmannKhurana','6:00','src/main/resources/02-Saadi-Galli-Aaja-_Nautanki-Saala_ (1).wav')");
 
             throw new DuplicateValueException("Duplicate value");
-        } catch (DuplicateValueException e){
-            System.out.println(e+"\n");
+        } catch (DuplicateValueException e) {
+            System.out.println(e + "\n");
         }
         return "Values Inserted";
     }

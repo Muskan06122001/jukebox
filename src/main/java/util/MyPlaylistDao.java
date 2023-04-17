@@ -1,7 +1,6 @@
 package util;
 
 import exception.TableAlreadyCreatedException;
-import util.Dbutil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,5 +25,6 @@ public class MyPlaylistDao {
         }
         return "Table created";
     }
+
 
 }
