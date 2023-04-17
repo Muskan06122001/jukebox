@@ -1,6 +1,6 @@
 package dao;
 
-import bean.Songs;
+import bean.Song;
 import util.Dbutil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,20 +15,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import exception.NotANumberException;
+
 
 public  class Play {
      static Scanner sc=new Scanner(System.in);
 
-     public static final ArrayList<Songs> list = new ArrayList<>();
+     public static final ArrayList<Song> list = new ArrayList<>();
 
-     public static ArrayList<Songs> playsongs() throws SQLException {
+     public static void playSong() throws SQLException {
          Connection connection = Dbutil.getConnection();
 
          Statement st = connection.createStatement();
          ResultSet res = st.executeQuery("select * from MySongs");
          while (res.next()) {
-             list.add(new Songs(res.getInt(1),
+             list.add(new Song(res.getInt(1),
                      res.getString(2),
                      res.getString(3),
                      res.getString(4),
@@ -39,11 +39,10 @@ public  class Play {
          }
 
         Collections.sort(list);
-         return list;
      }
 
 
-     public static void YourChoice() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException, NotANumberException {
+     public static void YourChoice() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
           Registration r=new Registration();
              Scanner sc = new Scanner(System.in);
              System.out.println("1)------>Play");
@@ -60,7 +59,7 @@ public  class Play {
                      SearchBy();
                      break;
                  case 3:
-                     MyPlaylist.MyAllPlaylist();
+                     MyPlaylist.myAllPlaylist();
                      break;
                  case 4:
                     r.Logout();
@@ -73,7 +72,7 @@ public  class Play {
 
          }
 
-     public static void SearchBy() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException, NotANumberException {
+     public static void SearchBy() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
          System.out.println("1)------>SearchBySongId");
          System.out.println("2)------>SearchBySongName");
          System.out.println("3)------>SearchBySongAlbum");
@@ -109,13 +108,13 @@ public  class Play {
          }
      }
 
-     public static void playing(int choice) throws LineUnavailableException, SQLException, UnsupportedAudioFileException, IOException, NotANumberException {
+     public static void playing(int choice) throws LineUnavailableException, SQLException, UnsupportedAudioFileException, IOException {
          try {
              Scanner sc = new Scanner(System.in);
 
              String path = "";
 
-             for (Songs s : list) {
+             for (Song s : list) {
                  if (s.getSongId() == choice) {
                      path = s.getPath();
                  }
@@ -164,14 +163,13 @@ public  class Play {
                  }
              }
          }catch (FileNotFoundException e){
-             System.out.println(e);
-
+             System.out.println(e+"\n");
          }
      }
 
 
-     public static void SongsTable() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException, NotANumberException {
-         Play.playsongs();
+     public static void SongsTable() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
+         Play.playSong();
          System.out.printf("%s\n",
                  StringUtils.center(">>> Relax Your Mind with Music <<<", 150));
          System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
@@ -183,12 +181,12 @@ public  class Play {
                  StringUtils.center("Artist", 20),
                  StringUtils.center("Duration", 20));
          System.out.println();
-         System.out.printf("+---------------------------------------------------------------------------------------------------------------------------------+\n");
+         System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
 
-         for(Songs s:Play.list) {
+         for(Song s:Play.list) {
              System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
                      StringUtils.center(String.valueOf(s.getSongId()), 20),
-                     StringUtils.center(s.getSong_name(), 20),
+                     StringUtils.center(s.getName(), 20),
                      StringUtils.center(s.getAlbum(), 25),
                      StringUtils.center(s.getGenre(), 20),
                      StringUtils.center(s.getArtist(), 20),

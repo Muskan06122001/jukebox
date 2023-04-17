@@ -8,7 +8,7 @@ import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 import exception.TableAlreadyCreatedException;
 
-public class RegistrationDAO {
+public class RegistrationDao {
     public String RegistrationTable() throws SQLException {
         Connection connection = Dbutil.getConnection();
         Statement st = connection.createStatement();
@@ -21,9 +21,12 @@ public class RegistrationDAO {
             }
 
         }catch (TableAlreadyCreatedException |  SQLSyntaxErrorException  e){
-            System.out.println(e);
+            System.out.println(e+"\n");
         }
         return "Table created";
     }
 
 }
+
+
+

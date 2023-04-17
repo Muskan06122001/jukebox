@@ -1,4 +1,4 @@
-import dao.SongDAO;
+import dao.SongDao;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,12 +7,12 @@ import org.junit.Test;
 import java.sql.SQLException;
 
 public class SongDAOException {
-    SongDAO song;
+    SongDao song;
 
     @Before
     public void setUp() {
 
-        song = new SongDAO();
+        song = new SongDao();
     }
 
     @After

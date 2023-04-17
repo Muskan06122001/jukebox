@@ -1,4 +1,4 @@
-import dao.RegistrationDAO;
+import dao.RegistrationDao;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,12 +10,12 @@ public class RegistrationDAOException {
 
 
 
-    RegistrationDAO rd;
+    RegistrationDao rd;
 
 
     @Before
     public void setUp(){
-        rd=new RegistrationDAO();
+        rd=new RegistrationDao();
 
     }
     @After

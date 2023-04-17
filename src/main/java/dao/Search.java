@@ -1,6 +1,6 @@
 package dao;
 
-import bean.Songs;
+import bean.Song;
 
 import util.Dbutil;
 import org.apache.commons.lang3.StringUtils;
@@ -16,8 +16,6 @@ import java.sql.SQLException;
 
 import java.sql.Statement;
 import java.util.*;
-
-import exception.NotANumberException;
 import exception.GenreNotAvailableException;
 import exception.SongNotAvailableException;
 import exception.AlbumNotAvailableException;
@@ -27,12 +25,12 @@ import exception.InvalidChoiceException;
 public class Search {
     static Scanner sc = new Scanner(System.in);
 
-    public static void SearchBySongId() throws LineUnavailableException, SQLException, UnsupportedAudioFileException, IOException, NotANumberException {
+    public static void SearchBySongId() throws LineUnavailableException, SQLException, UnsupportedAudioFileException, IOException {
         Dbutil.getConnection();
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();
         boolean flag;
-        int id = 0;
+        int id;
         List<Integer> li = new ArrayList<>();
         List<String> li2 = new ArrayList<>();
         List<Integer> li1 = new ArrayList<>();
@@ -40,18 +38,18 @@ public class Search {
         do {
             try {
 
-                Play.playsongs();
-                for (Songs s1 : Play.list) {
+                Play.playSong();
+                for (Song s1 : Play.list) {
                     li.add(s1.getSongId());
                 }
 
 
-                ResultSet res1=st.executeQuery("select * from mysongs");
+                ResultSet res1=st.executeQuery("select * from MySongs");
                 while(res1.next()){
                     li1.add(res1.getInt(1));                                          // for printing  songsId
                 }
 
-                ResultSet res2=st.executeQuery("select * from mysongs");
+                ResultSet res2=st.executeQuery("select * from MySongs");
                 while(res2.next()){
                     li2.add(res2.getString(2));
                 }
@@ -63,7 +61,7 @@ public class Search {
                 System.out.println(li2+"\n");
                 System.out.println("Enter the Id");
                 id = sc.nextInt();
-                ResultSet res = st.executeQuery("select * from mysongs where SongId='" + id + "'");
+                ResultSet res = st.executeQuery("select * from MySongs where SongId='" + id + "'");
 
 
                 if (li.contains(id)) {
@@ -98,35 +96,35 @@ public class Search {
                 }
 
             } catch (InvalidChoiceException | FileNotFoundException e) {
-                System.out.println(e);
+                System.out.println(e+"\n");
             }
         } while (flag);
     }
 
-    public static void searchBySongName() throws LineUnavailableException, UnsupportedAudioFileException, SQLException, IOException, NotANumberException {
+    public static void searchBySongName() throws LineUnavailableException, UnsupportedAudioFileException, SQLException, IOException {
         Dbutil.getConnection();
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();
         boolean flag;
-        String name = "";
+        String name ;
         List<String> li = new ArrayList<>();
         flag = true;
         do {
             try {
 
-                Play.playsongs();
-                for (Songs s1 : Play.list) {
-                    li.add(s1.getSong_name());
+                Play.playSong();
+                for (Song s1 : Play.list) {
+                    li.add(s1.getName());
                 }
                 System.out.printf("%s\n",
-                StringUtils.center("***-----Available Songs-----***\n", 100));
-                ResultSet res1=st.executeQuery("select distinct SongName from mysongs");
+                StringUtils.center("***-----Available Song-----***\n", 100));
+                ResultSet res1=st.executeQuery("select distinct SongName from MySongs");
                 while(res1.next()){
                     System.out.println(res1.getString(1));
                 }
                 System.out.println("Enter the name of the song :");
                 name = sc.next();
-                ResultSet res = st.executeQuery("select * from mysongs where SongName='" + name + "'");
+                ResultSet res = st.executeQuery("select * from MySongs where SongName='" + name + "'");
 
                 if (li.contains(name)) {
                     while (res.next()) {
@@ -162,14 +160,14 @@ public class Search {
 
 
             } catch (SongNotAvailableException | FileNotFoundException e) {
-                System.out.println(e);
+                System.out.println(e+"\n");
             }
         } while (flag);
 
     }
 
 
-    public static void SearchByAlbum() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException, NotANumberException {
+    public static void SearchByAlbum() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
         Dbutil.getConnection();
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();
@@ -179,20 +177,20 @@ public class Search {
         do {
             try {
 
-                Play.playsongs();
-                for (Songs s1 : Play.list) {
+                Play.playSong();
+                for (Song s1 : Play.list) {
                     li.add(s1.getAlbum());
                 }
                 System.out.printf("%s\n",
                 StringUtils.center("***-----Available Album-----***\n", 100));
-                ResultSet res1=st.executeQuery("select distinct Album from mysongs");
+                ResultSet res1=st.executeQuery("select distinct Album from MySongs");
                 while(res1.next()){
                     System.out.println(res1.getString(1));
                 }
 
                 System.out.println("Enter the Name Of the Album");
                 String Album = sc.next();
-                ResultSet res = st.executeQuery("select * from mysongs where Album='" + Album + "'");
+                ResultSet res = st.executeQuery("select * from MySongs where Album='" + Album + "'");
 
 
                 if (li.contains(Album)) {
@@ -226,7 +224,7 @@ public class Search {
                 }
 
             } catch (AlbumNotAvailableException | FileNotFoundException e) {
-                System.out.println(e);
+                System.out.println(e+"\n");
             }
         } while (flag);
     }
@@ -241,20 +239,20 @@ public class Search {
         List<Integer> li1 = new ArrayList<>();
         do {
             try {
-                Play.playsongs();
-                for (Songs s : Play.list) {
+                Play.playSong();
+                for (Song s : Play.list) {
                     li.add(s.getGenre());
                 }
                 System.out.printf("%s\n",
                 StringUtils.center("***-----Available Genre-----***\n", 100));
-                ResultSet res1=st.executeQuery("select distinct Genre from mysongs");
+                ResultSet res1=st.executeQuery("select distinct Genre from MySongs");
                 while(res1.next()){
                     System.out.println(res1.getString(1));
                 }
                 System.out.println("Enter Genre");
                 String genre = sc.next();
 
-                ResultSet res = st.executeQuery("select * from mysongs where Genre='" + genre + "'");
+                ResultSet res = st.executeQuery("select * from MySongs where Genre='" + genre + "'");
                 if (li.contains(genre)) {
 
                     while (res.next()) {
@@ -296,7 +294,7 @@ public class Search {
                                 throw new InvalidChoiceException("Invalid Choice");
                             }
                         } catch (InvalidChoiceException e) {
-                            System.out.println(e);
+                            System.out.println(e+"\n");
 
                         }
                     } while (flag);
@@ -306,7 +304,7 @@ public class Search {
                     throw new GenreNotAvailableException("This Genre is not Available");
                 }
             } catch (GenreNotAvailableException e) {
-                System.out.println(e);
+                System.out.println(e+"\n");
             }
 
         } while (flag);
@@ -323,14 +321,14 @@ public class Search {
         flag = true;
         do {
             try {
-                Play.playsongs();
-                for (Songs s : Play.list) {
+                Play.playSong();
+                for (Song s : Play.list) {
                     li.add(s.getArtist());
                 }
                 System.out.printf("%s\n",
                 StringUtils.center("***-----Available Artist-----***\n", 100));
 
-                ResultSet res1=st.executeQuery("select distinct Artist from mysongs");
+                ResultSet res1=st.executeQuery("select distinct Artist from MySongs");
                 while(res1.next()){
                     System.out.println(res1.getString(1));
                 }
@@ -338,7 +336,7 @@ public class Search {
                 String artist = sc.next();
 
 
-                ResultSet res = st.executeQuery("select * from mysongs where Artist='" + artist + "'");
+                ResultSet res = st.executeQuery("select * from MySongs where Artist='" + artist + "'");
 
                 if (li.contains(artist)) {
                     while (res.next()) {
@@ -371,7 +369,7 @@ public class Search {
 
                 do {
                     try {
-                        flag = true;
+                       // flag = true;
                         System.out.println("Enter SongId");
                         int id = sc.nextInt();
                         if (li1.contains(id)) {
@@ -381,13 +379,13 @@ public class Search {
                             throw new InvalidChoiceException("Invalid Choice");
                         }
                     } catch (InvalidChoiceException e) {
-                        System.out.println(e);
+                        System.out.println(e+"\n");
                     }
                 } while (flag);
 
 
             } catch (ArtistNotAvailableException e) {
-                System.out.println(e);
+                System.out.println(e+"\n");
             }
         } while (flag);
     }
@@ -402,19 +400,19 @@ public class Search {
         do {
 
             try {
-                for (Songs s : Play.list) {
+                for (Song s : Play.list) {
                     li.add(s.getDuration());
                 }
                 System.out.printf("%s\n",
                 StringUtils.center("***-----Available Duration-----***\n", 100));
-                ResultSet res1=st.executeQuery("select distinct Duration from mysongs");
+                ResultSet res1=st.executeQuery("select distinct Duration from MySongs");
                 while(res1.next()){
                     System.out.println(res1.getString(1));
                 }
                 System.out.println("Enter Duration ");
                 String duration = sc.next();
 
-                ResultSet res = st.executeQuery("select * from mysongs where Duration='" + duration + "'");
+                ResultSet res = st.executeQuery("select * from MySongs where Duration='" + duration + "'");
 
                 if (li.contains(duration)) {
                     while (res.next()) {
@@ -440,13 +438,14 @@ public class Search {
                         System.out.println();
                         System.out.print("+----------------------------------------------------------------------------------------------------------------------------------+\n");
                         Play.playing(res.getInt(1));
+                        flag=false;
                     }
                 } else {
                     throw new InvalidChoiceException("Invalid Choice");
                 }
 
             } catch (InvalidChoiceException e) {
-                System.out.println(e);
+                System.out.println(e+"\n");
             }
 
         } while (flag);
