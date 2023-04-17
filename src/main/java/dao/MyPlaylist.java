@@ -188,7 +188,7 @@ public class MyPlaylist {
                 throw new InvalidChoiceException("Invalid Choice");
             }
         } catch (InvalidChoiceException e) {
-            System.out.println(e + "\n");
+            System.out.println(e.getMessage() + "\n");
             myAllPlaylist();
         }
     }
@@ -197,28 +197,15 @@ public class MyPlaylist {
 
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();
-        System.out.printf("%s\n",
-                StringUtils.center(">>> Relax Your Mind with Music <<<", 150));
+        System.out.printf("%s\n", StringUtils.center(">>> Relax Your Mind with Music <<<", 150));
         System.out.println("+---------------------------------------------------------------------------------------------------------------------------------+\n");
-        System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
-                StringUtils.center("SongId", 20),
-                StringUtils.center("SongName", 20),
-                StringUtils.center("Album", 25),
-                StringUtils.center("Genre", 20),
-                StringUtils.center("Artist", 20),
-                StringUtils.center("Duration", 20));
+        System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|", StringUtils.center("SongId", 20), StringUtils.center("SongName", 20), StringUtils.center("Album", 25), StringUtils.center("Genre", 20), StringUtils.center("Artist", 20), StringUtils.center("Duration", 20));
         System.out.println();
         System.out.println("+---------------------------------------------------------------------------------------------------------------------------------+\n");
 
         ResultSet songResultSet = st.executeQuery("select * from MySongs");
         while (songResultSet.next()) {
-            System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
-                    StringUtils.center(String.valueOf(songResultSet.getInt(1)), 20),
-                    StringUtils.center(songResultSet.getString(2), 20),
-                    StringUtils.center(songResultSet.getString(3), 25),
-                    StringUtils.center(songResultSet.getString(4), 20),
-                    StringUtils.center(songResultSet.getString(5), 20),
-                    StringUtils.center(songResultSet.getString(6), 20));
+            System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|", StringUtils.center(String.valueOf(songResultSet.getInt(1)), 20), StringUtils.center(songResultSet.getString(2), 20), StringUtils.center(songResultSet.getString(3), 25), StringUtils.center(songResultSet.getString(4), 20), StringUtils.center(songResultSet.getString(5), 20), StringUtils.center(songResultSet.getString(6), 20));
             System.out.println();
         }
         System.out.println("+---------------------------------------------------------------------------------------------------------------------------------+\n");
@@ -249,7 +236,7 @@ public class MyPlaylist {
                 System.out.println(" *** Thanks For Your Response *** ");
             }
         } catch (SQLException e) {
-            System.out.println(e + "\n");
+            System.out.println(e.getMessage() + "\n");
         }
     }
 

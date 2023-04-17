@@ -21,7 +21,7 @@ public class SongDao {
                 throw new TableAlreadyCreatedException("Table Already created");
             }
         } catch (TableAlreadyCreatedException | SQLSyntaxErrorException e) {
-            System.out.println("Table Already Exist" + e);
+            System.out.println("Table Already Exist" + e.getMessage());
         }
         return "Table created";
     }

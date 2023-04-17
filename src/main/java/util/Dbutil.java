@@ -13,7 +13,7 @@ public class Dbutil {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/LatestProject", "root", "Muskan@123");
             // System.out.println("Connection established");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + "\n");
         }
         return connection;
     }

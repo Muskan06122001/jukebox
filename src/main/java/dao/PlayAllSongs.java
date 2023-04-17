@@ -75,11 +75,11 @@ public class PlayAllSongs {
                     }
                     //System.out.println();
                 } else {
-                    throw new InvalidChoiceException("Invalid");
+                    throw new InvalidChoiceException("Invalid SongId");
                 }
 
             } catch (FileNotFoundException | InvalidChoiceException | InputMismatchException e) {
-                System.out.println(e + "\n");
+                System.out.println(e.getMessage() + "\n");
             }
 
         } while (flag);

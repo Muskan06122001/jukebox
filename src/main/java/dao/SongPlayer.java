@@ -27,13 +27,7 @@ public class SongPlayer {
         Statement st = connection.createStatement();
         ResultSet res = st.executeQuery("select * from MySongs");
         while (res.next()) {
-            list.add(new Song(res.getInt(1),
-                    res.getString(2),
-                    res.getString(3),
-                    res.getString(4),
-                    res.getString(5),
-                    res.getString(6),
-                    res.getString(7)));
+            list.add(new Song(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getString(7)));
 
         }
 
@@ -44,7 +38,7 @@ public class SongPlayer {
     public static void yourChoice() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
         Registration r = new Registration();
         Scanner sc = new Scanner(System.in);
-        System.out.println("1)------>SongPlayer");
+        System.out.println("1)------>Play");
         System.out.println("2)----->Search By");
         System.out.println("3)------>My Playlist");
         System.out.println("4)----->LogOut");
@@ -124,13 +118,13 @@ public class SongPlayer {
             clip.open(audioInputStream);
             String demand = "";
             while (!demand.equalsIgnoreCase("e")) {
-                System.out.println("P=SongPlayer , S=Stop , R=Reset , N=Next ,PRE=Pre ,G=Go to Menu ");
+                System.out.println("P=Play , S=Stop , R=Reset , N=Next ,PRE=Pre ,G=Go to Menu ");
                 System.out.println("Enter your choice");
                 demand = sc.nextLine().toUpperCase();
 
                 switch (demand) {
                     case "P":
-                        System.out.println("SongPlayer");
+                        System.out.println("Play");
                         clip.start();
                         break;
 
@@ -162,34 +156,21 @@ public class SongPlayer {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e + "\n");
+            System.out.println(e.getMessage() + "\n");
         }
     }
 
 
     public static void songsTable() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
         SongPlayer.playSong();
-        System.out.printf("%s\n",
-                StringUtils.center(">>> Relax Your Mind with Music <<<", 150));
+        System.out.printf("%s\n", StringUtils.center(">>> Relax Your Mind with Music <<<", 150));
         System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
-        System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
-                StringUtils.center("SongId", 20),
-                StringUtils.center("SongName", 20),
-                StringUtils.center("Album", 25),
-                StringUtils.center("Genre", 20),
-                StringUtils.center("Artist", 20),
-                StringUtils.center("Duration", 20));
+        System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|", StringUtils.center("SongId", 20), StringUtils.center("SongName", 20), StringUtils.center("Album", 25), StringUtils.center("Genre", 20), StringUtils.center("Artist", 20), StringUtils.center("Duration", 20));
         System.out.println();
         System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
 
         for (Song s : SongPlayer.list) {
-            System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
-                    StringUtils.center(String.valueOf(s.getSongId()), 20),
-                    StringUtils.center(s.getName(), 20),
-                    StringUtils.center(s.getAlbum(), 25),
-                    StringUtils.center(s.getGenre(), 20),
-                    StringUtils.center(s.getArtist(), 20),
-                    StringUtils.center(s.getDuration(), 20));
+            System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|", StringUtils.center(String.valueOf(s.getSongId()), 20), StringUtils.center(s.getName(), 20), StringUtils.center(s.getAlbum(), 25), StringUtils.center(s.getGenre(), 20), StringUtils.center(s.getArtist(), 20), StringUtils.center(s.getDuration(), 20));
             System.out.println();
         }
         System.out.println("+---------------------------------------------------------------------------------------------------------------------------------+\n");

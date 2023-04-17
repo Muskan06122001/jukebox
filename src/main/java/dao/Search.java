@@ -75,7 +75,7 @@ public class Search {
                 }
 
             } catch (InvalidChoiceException | FileNotFoundException e) {
-                System.out.println(e + "\n");
+                System.out.println(e.getMessage() + "\n");
             }
         } while (flag);
     }
@@ -128,7 +128,7 @@ public class Search {
 
 
             } catch (SongNotAvailableException | FileNotFoundException e) {
-                System.out.println(e + "\n");
+                System.out.println(e.getMessage() + "\n");
             }
         } while (flag);
 
@@ -180,7 +180,7 @@ public class Search {
                 }
 
             } catch (AlbumNotAvailableException | FileNotFoundException e) {
-                System.out.println(e + "\n");
+                System.out.println(e.getMessage() + "\n");
             }
         } while (flag);
     }
@@ -238,7 +238,7 @@ public class Search {
                                 throw new InvalidChoiceException("Invalid Choice");
                             }
                         } catch (InvalidChoiceException e) {
-                            System.out.println(e + "\n");
+                            System.out.println(e.getMessage() + "\n");
 
                         }
                     } while (flag);
@@ -248,7 +248,7 @@ public class Search {
                     throw new GenreNotAvailableException("This Genre is not Available");
                 }
             } catch (GenreNotAvailableException e) {
-                System.out.println(e + "\n");
+                System.out.println(e.getMessage() + "\n");
             }
 
         } while (flag);
@@ -310,13 +310,13 @@ public class Search {
                             throw new InvalidChoiceException("Invalid Choice");
                         }
                     } catch (InvalidChoiceException e) {
-                        System.out.println(e + "\n");
+                        System.out.println(e.getMessage() + "\n");
                     }
                 } while (flag);
 
 
             } catch (ArtistNotAvailableException e) {
-                System.out.println(e + "\n");
+                System.out.println(e.getMessage() + "\n");
             }
         } while (flag);
     }
@@ -364,7 +364,7 @@ public class Search {
                 }
 
             } catch (InvalidChoiceException e) {
-                System.out.println(e + "\n");
+                System.out.println(e.getMessage() + "\n");
             }
 
         } while (flag);

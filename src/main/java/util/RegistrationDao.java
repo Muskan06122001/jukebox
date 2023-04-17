@@ -20,7 +20,7 @@ public class RegistrationDao {
             }
 
         } catch (TableAlreadyCreatedException | SQLSyntaxErrorException e) {
-            System.out.println(e + "\n");
+            System.out.println(e.getMessage() + "\n");
         }
         return "Table created";
     }

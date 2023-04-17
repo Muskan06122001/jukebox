@@ -21,7 +21,7 @@ public class MyPlaylistDao {
             }
 
         } catch (TableAlreadyCreatedException | SQLSyntaxErrorException e) {
-            System.out.println("Table already Exist" + e);
+            System.out.println("Table already Exist" + e.getMessage());
         }
         return "Table created";
     }
