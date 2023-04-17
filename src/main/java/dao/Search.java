@@ -38,8 +38,8 @@ public class Search {
         do {
             try {
 
-                Play.playSong();
-                for (Song s1 : Play.list) {
+                SongPlayer.playSong();
+                for (Song s1 : SongPlayer.list) {
                     li.add(s1.getSongId());
                 }
 
@@ -87,7 +87,7 @@ public class Search {
 
                         System.out.println();
                         System.out.print("+----------------------------------------------------------------------------------------------------------------------------------+\n");
-                        Play.playing(res.getInt(1));
+                        SongPlayer.playing(res.getInt(1));
                         flag = false;
                     }
 
@@ -112,8 +112,8 @@ public class Search {
         do {
             try {
 
-                Play.playSong();
-                for (Song s1 : Play.list) {
+                SongPlayer.playSong();
+                for (Song s1 : SongPlayer.list) {
                     li.add(s1.getName());
                 }
                 System.out.printf("%s\n",
@@ -149,7 +149,7 @@ public class Search {
 
                         System.out.println();
                         System.out.print("+----------------------------------------------------------------------------------------------------------------------------------+\n");
-                        Play.playing(res.getInt(1)); //taking Id
+                        SongPlayer.playing(res.getInt(1)); //taking Id
                         flag = false;
                     }
 
@@ -177,8 +177,8 @@ public class Search {
         do {
             try {
 
-                Play.playSong();
-                for (Song s1 : Play.list) {
+                SongPlayer.playSong();
+                for (Song s1 : SongPlayer.list) {
                     li.add(s1.getAlbum());
                 }
                 System.out.printf("%s\n",
@@ -216,7 +216,7 @@ public class Search {
 
                         System.out.println();
                         System.out.print("+----------------------------------------------------------------------------------------------------------------------------------+\n");
-                        Play.playing(res.getInt(1));
+                        SongPlayer.playing(res.getInt(1));
                         flag = false;
                     }
                 } else {
@@ -239,8 +239,8 @@ public class Search {
         List<Integer> li1 = new ArrayList<>();
         do {
             try {
-                Play.playSong();
-                for (Song s : Play.list) {
+                SongPlayer.playSong();
+                for (Song s : SongPlayer.list) {
                     li.add(s.getGenre());
                 }
                 System.out.printf("%s\n",
@@ -288,7 +288,7 @@ public class Search {
                             int id = sc.nextInt();
 
                             if (li1.contains(id)) {
-                                Play.playing(id);
+                                SongPlayer.playing(id);
                                 flag = false;
                             } else {
                                 throw new InvalidChoiceException("Invalid Choice");
@@ -321,8 +321,8 @@ public class Search {
         flag = true;
         do {
             try {
-                Play.playSong();
-                for (Song s : Play.list) {
+                SongPlayer.playSong();
+                for (Song s : SongPlayer.list) {
                     li.add(s.getArtist());
                 }
                 System.out.printf("%s\n",
@@ -373,7 +373,7 @@ public class Search {
                         System.out.println("Enter SongId");
                         int id = sc.nextInt();
                         if (li1.contains(id)) {
-                            Play.playing(id);
+                            SongPlayer.playing(id);
                             flag = false;
                         } else {
                             throw new InvalidChoiceException("Invalid Choice");
@@ -400,7 +400,7 @@ public class Search {
         do {
 
             try {
-                for (Song s : Play.list) {
+                for (Song s : SongPlayer.list) {
                     li.add(s.getDuration());
                 }
                 System.out.printf("%s\n",
@@ -437,7 +437,7 @@ public class Search {
 
                         System.out.println();
                         System.out.print("+----------------------------------------------------------------------------------------------------------------------------------+\n");
-                        Play.playing(res.getInt(1));
+                        SongPlayer.playing(res.getInt(1));
                         flag=false;
                     }
                 } else {

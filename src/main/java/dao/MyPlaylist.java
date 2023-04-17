@@ -134,7 +134,7 @@ public class MyPlaylist {
                 re3 = r8.getInt(1);
             }
             if (li4.contains(re3)) {
-                Play.playing(re3);
+                SongPlayer.playing(re3);
                 flag = false;
             } else {
                 System.out.println("  \t  *** This Song is Not Available ***  \t \n ");
@@ -149,7 +149,7 @@ public class MyPlaylist {
             MyPlaylist mp = new MyPlaylist();
             System.out.println("1)-----Create Playlist And Add Songs");
             System.out.println("2)-----View Playlist");
-            System.out.println("3)-----Play Song From Playlist");
+            System.out.println("3)-----SongPlayer Song From Playlist");
             System.out.println("4)-----Go Back to Menu");
 
 
@@ -175,13 +175,13 @@ public class MyPlaylist {
                         break;
 
                     case 3:
-                        System.out.println("3)-----Play Song From Playlist \n");
+                        System.out.println("3)-----SongPlayer Song From Playlist \n");
                         playSongs();
                         myAllPlaylist();
                         break;
                     case 4:
                         System.out.println("4)-----Go Back \n");
-                        Play.YourChoice();
+                        SongPlayer.YourChoice();
                         myAllPlaylist();
                         break;
 

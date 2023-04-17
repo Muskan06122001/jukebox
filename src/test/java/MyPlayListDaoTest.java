@@ -1,6 +1,5 @@
 
-import dao.MyPlaylist;
-import dao.MyPlaylistDao;
+import util.MyPlaylistDao;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

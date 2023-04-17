@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 
-public  class Play {
+public  class SongPlayer {
      static Scanner sc=new Scanner(System.in);
 
      public static final ArrayList<Song> list = new ArrayList<>();
@@ -45,7 +45,7 @@ public  class Play {
      public static void YourChoice() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
           Registration r=new Registration();
              Scanner sc = new Scanner(System.in);
-             System.out.println("1)------>Play");
+             System.out.println("1)------>SongPlayer");
              System.out.println("2)----->Search By");
              System.out.println("3)------>My Playlist");
              System.out.println("4)----->LogOut");
@@ -125,13 +125,13 @@ public  class Play {
              clip.open(audioInputStream);
              String demand = "";
              while (!demand.equalsIgnoreCase("e")) {
-                 System.out.println("P=Play , S=Stop , R=Reset , N=Next ,PRE=Pre ,G=Go to Menu ");
+                 System.out.println("P=SongPlayer , S=Stop , R=Reset , N=Next ,PRE=Pre ,G=Go to Menu ");
                  System.out.println("Enter your choice");
                  demand = sc.nextLine().toUpperCase();
 
                  switch (demand) {
                      case "P":
-                         System.out.println("Play");
+                         System.out.println("SongPlayer");
                          clip.start();
                          break;
 
@@ -149,7 +149,7 @@ public  class Play {
                          break;
                      case "PRE":
                          //clip.stop();
-                         System.out.println("Play Previous Song");
+                         System.out.println("SongPlayer Previous Song");
                          playing(choice - 1);
                          clip.start();
                          break;
@@ -168,8 +168,8 @@ public  class Play {
      }
 
 
-     public static void SongsTable() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
-         Play.playSong();
+     public static void songsTable() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
+         SongPlayer.playSong();
          System.out.printf("%s\n",
                  StringUtils.center(">>> Relax Your Mind with Music <<<", 150));
          System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
@@ -183,7 +183,7 @@ public  class Play {
          System.out.println();
          System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
 
-         for(Song s:Play.list) {
+         for(Song s: SongPlayer.list) {
              System.out.format("%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
                      StringUtils.center(String.valueOf(s.getSongId()), 20),
                      StringUtils.center(s.getName(), 20),

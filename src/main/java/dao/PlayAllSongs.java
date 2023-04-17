@@ -1,4 +1,10 @@
 package dao;
+
+import bean.Song;
+import exception.InvalidChoiceException;
+import org.apache.commons.lang3.StringUtils;
+import util.Dbutil;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileNotFoundException;
@@ -12,11 +18,6 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import bean.Song;
-import util.Dbutil;
-import exception.InvalidChoiceException;
-import org.apache.commons.lang3.StringUtils;
-
 
 public class PlayAllSongs {
 
@@ -26,33 +27,30 @@ public class PlayAllSongs {
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();
         Dbutil.getConnection();
-        List<Integer> li = new ArrayList<>();
+        List<Integer> songIdList = new ArrayList<>();
         List<Integer> li3 = new ArrayList<>();
-        List<String> li2 = new ArrayList<>();
+        List<String> songNameList = new ArrayList<>();
         boolean flag = true;
-        int Id ;
+        int Id;
         do {
             try {
 
-                Play.playSong();
-                for (Song s1 : Play.list) {
-                    li.add(s1.getSongId());
+                SongPlayer.playSong();
+                for (Song s1 : SongPlayer.list) {
+                    songIdList.add(s1.getSongId());
                 }
 
 
-                ResultSet res1 = st.executeQuery("select *  from MySongs");
-                while (res1.next()) {
-                    li3.add(res1.getInt(1));
-                }
-                ResultSet res2=st.executeQuery("select * from MySongs");
-                while(res2.next()){
-                    li2.add(res2.getString(2));
+                ResultSet songResultSet = st.executeQuery("select *  from MySongs");
+                while (songResultSet.next()) {
+                    songNameList.add(songResultSet.getString(2));
+                    li3.add(songResultSet.getInt(1));
                 }
 
                 System.out.println("\t\t***-----Available SongId-----***\t\t\n");
-                System.out.println(li3+"\n");
+                System.out.println(li3 + "\n");
                 System.out.println("\t\t***-----Available SongName-----***\t\t\n");
-                System.out.println(li2+"\n");
+                System.out.println(songNameList + "\n");
 
 
                 System.out.println("Enter SongId");
@@ -60,7 +58,7 @@ public class PlayAllSongs {
                 ResultSet res = st.executeQuery("select * from MySongs where SongId='" + Id + "'");
 
 
-                if (li.contains(Id)) {
+                if (songIdList.contains(Id)) {
                     while (res.next()) {
                         System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
                         System.out.format("|%-10s|%-10s|%-10s|%-10s|%-10s|%-10s|",
@@ -84,7 +82,7 @@ public class PlayAllSongs {
                         System.out.println();
                         System.out.print("+---------------------------------------------------------------------------------------------------------------------------------+\n");
                         flag = false;
-                        Play.playing(Id);
+                        SongPlayer.playing(Id);
                     }
                     //System.out.println();
                 } else {
@@ -92,7 +90,7 @@ public class PlayAllSongs {
                 }
 
             } catch (FileNotFoundException | InvalidChoiceException | InputMismatchException e) {
-                System.out.println(e+"\n");
+                System.out.println(e + "\n");
             }
 
         } while (flag);
