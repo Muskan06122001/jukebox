@@ -27,7 +27,7 @@ public class RegistrationDAOException {
     @Test
     public void createTableFailure() throws SQLException {
 
-        String actual = rd.RegistrationTable();
+        String actual = rd.registrationTable();
         Assert.assertNotEquals("Table already created", actual);
 
     }

@@ -19,7 +19,7 @@ public class Registration {
     static int UserId;
     static Scanner sc = new Scanner(System.in);
 
-    public static void Choose() throws SQLException, UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public static void choose() throws SQLException, UnsupportedAudioFileException, LineUnavailableException, IOException {
         Registration r = new Registration();
         System.out.println("\n");
         System.out.printf("%s\n", StringUtils.center("***-----Welcome To My JukeBox-----***\n", 100));
@@ -43,11 +43,11 @@ public class Registration {
                 break;
             case 3:
                 System.out.println("3)----->Exit\n");
-                r.Logout();
+                r.logout();
                 break;
             default:
                 System.out.println("Invalid choice");
-                Choose();
+                choose();
                 break;
         }
 
@@ -65,7 +65,7 @@ public class Registration {
         sc.nextLine();
         String password = sc.nextLine();
         check(name, password);
-        r.UserIdCheck(name, password);
+        r.userIdCheck(name, password);
     }
 
     public static void check(String name, String password) throws SQLException {
@@ -94,15 +94,15 @@ public class Registration {
         String password = sc.nextLine();
         st.executeUpdate("insert into Registration(username,password) values('" + name + "','" + password + "')");
         System.out.println("Thank you For Registration");
-        r.UserIdCheck(name, password);
+        r.userIdCheck(name, password);
     }
 
-    public String Logout() {
+    public String logout() {
         System.out.printf("%s\n", StringUtils.center("***-----You Are LoggedOut-----***\n", 100));
         return "**** You Are LoggedOut ****";
     }
 
-    public int UserIdCheck(String name, String password) throws SQLException {
+    public int userIdCheck(String name, String password) throws SQLException {
         Connection connection = Dbutil.getConnection();
         Statement st = connection.createStatement();
         ResultSet res = st.executeQuery("select * from Registration  where username='" + name + "' AND password='" + password + "'");
@@ -112,6 +112,7 @@ public class Registration {
         return UserId;
     }
 }
+
 
 
 

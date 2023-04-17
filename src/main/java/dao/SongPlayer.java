@@ -41,7 +41,7 @@ public class SongPlayer {
     }
 
 
-    public static void YourChoice() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
+    public static void yourChoice() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
         Registration r = new Registration();
         Scanner sc = new Scanner(System.in);
         System.out.println("1)------>SongPlayer");
@@ -55,23 +55,23 @@ public class SongPlayer {
                 PlayAllSongs.playSongs();
                 break;
             case 2:
-                SearchBy();
+                searchBy();
                 break;
             case 3:
                 MyPlaylist.myAllPlaylist();
                 break;
             case 4:
-                r.Logout();
+                r.logout();
                 break;
             default:
                 System.out.println("Invalid choice , Please Enter valid choice");
-                YourChoice();
+                yourChoice();
                 break;
         }
 
     }
 
-    public static void SearchBy() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
+    public static void searchBy() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
         System.out.println("1)------>SearchBySongId");
         System.out.println("2)------>SearchBySongName");
         System.out.println("3)------>SearchBySongAlbum");
@@ -83,13 +83,13 @@ public class SongPlayer {
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                Search.SearchBySongId();
+                Search.searchBySongId();
                 break;
             case 2:
                 Search.searchBySongName();
                 break;
             case 3:
-                Search.SearchByAlbum();
+                Search.searchByAlbum();
                 break;
             case 4:
                 Search.searchingByGenre();
@@ -102,7 +102,7 @@ public class SongPlayer {
                 break;
             default:
                 System.out.println("Invalid Choice");
-                SearchBy();
+                searchBy();
                 break;
         }
     }
@@ -153,7 +153,7 @@ public class SongPlayer {
                         clip.start();
                         break;
                     case "G":
-                        YourChoice();
+                        yourChoice();
                         break;
                     default:
                         System.out.println("Invalid Choice");
@@ -193,7 +193,7 @@ public class SongPlayer {
             System.out.println();
         }
         System.out.println("+---------------------------------------------------------------------------------------------------------------------------------+\n");
-        YourChoice();
+        yourChoice();
     }
 }
 

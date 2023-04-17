@@ -21,7 +21,7 @@ public class MyPlaylist {
 
     static Scanner sc = new Scanner(System.in);
 
-    public static void CreateAndAddSongsToList() throws SQLException {
+    public static void createAndAddSongsToList() throws SQLException {
         Connection connection = Dbutil.getConnection();
         Statement st = connection.createStatement();
         int id1 = 0;
@@ -157,7 +157,7 @@ public class MyPlaylist {
                     case 1:
                         System.out.println("1)-----Create Playlist & Add Songs");
                         availableSongs();
-                        CreateAndAddSongsToList();
+                        createAndAddSongsToList();
                         myAllPlaylist();
                         break;
 
@@ -174,7 +174,7 @@ public class MyPlaylist {
                         break;
                     case 4:
                         System.out.println("4)-----Go Back \n");
-                        SongPlayer.YourChoice();
+                        SongPlayer.yourChoice();
                         myAllPlaylist();
                         break;
 
