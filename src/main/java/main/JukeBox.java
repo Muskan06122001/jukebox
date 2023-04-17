@@ -13,7 +13,7 @@ public class JukeBox {
 
     public static void main(String[] args) throws SQLException, LineUnavailableException, UnsupportedAudioFileException, IOException {
         Dbutil.getConnection();
-        Registration.Choose();
+        Registration.choose();
 
     }
 }

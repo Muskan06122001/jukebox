@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class Search {
     static Scanner sc = new Scanner(System.in);
 
-    public static void SearchBySongId() throws LineUnavailableException, SQLException, UnsupportedAudioFileException, IOException {
+    public static void searchBySongId() throws LineUnavailableException, SQLException, UnsupportedAudioFileException, IOException {
         Dbutil.getConnection();
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();
@@ -135,7 +135,7 @@ public class Search {
     }
 
 
-    public static void SearchByAlbum() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
+    public static void searchByAlbum() throws UnsupportedAudioFileException, SQLException, LineUnavailableException, IOException {
         Dbutil.getConnection();
         Connection con = Dbutil.getConnection();
         Statement st = con.createStatement();

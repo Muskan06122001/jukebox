@@ -8,7 +8,7 @@ import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 
 public class RegistrationDao {
-    public String RegistrationTable() throws SQLException {
+    public String registrationTable() throws SQLException {
         Connection connection = Dbutil.getConnection();
         Statement st = connection.createStatement();
         try {
