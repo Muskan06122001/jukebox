@@ -105,11 +105,13 @@ public class MyPlaylist {
                 System.out.println(songIdList + "\n");
 
                 Iterator<Integer> l = songIdList.iterator();
-                re2 = l.next();
-                ResultSet r9 = st.executeQuery("select SongName from MySongs where songId=" + re2 + "");
-                while (r9.next()) {
-                    songNameList.add(r9.getString(1));                                                          // Print Song Of Particular PlayList
+                while (l.hasNext()) {
+                    re2=l.next();
+                    ResultSet r9 = st.executeQuery("select SongName from MySongs where songId=" + re2 + "");
+                    while (r9.next()) {
+                        songNameList.add(r9.getString(1));                                                          // Print Song Of Particular PlayList
 
+                    }
                 }
                 System.out.println("\t *** Available Song are *** \t \n");
                 System.out.println(songNameList + "\n");
